@@ -32,6 +32,19 @@ class Stop
 
 
 
+  def add_station city_id, line_id
+    results = DB.exec("SELECT id FROM stops WHERE id = #{self.id()};")
+
+    results.each do |result|
+     city = DB.exec("SELECT * from cities where id = #{city_id()};").to-i
+     city_id = city.first.fetch("id")
+     line = DB.exec("SELECT * from trains where id = #{line_id()};").to_i
+     line_id = line.first.fetch("id")
+     stations<<Stop.new({:id => nil, :city_id => city_id, :train_id => line_id})
+
+   end
+   stations
+end
 
 
 
